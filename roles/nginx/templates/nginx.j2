@@ -1,8 +1,6 @@
 server {
-        root {{ project_path }};
-
-        access_log {{ project_path }}/logs/nginx-access.log;
-        error_log {{ project_path }}/logs/nginx-errors.log;
+        access_log /var/log/nginx/{{ project }}-access.log;
+        error_log /var/log/nginx/{{ project }}-errors.log;
         listen {{ project_port }};
         server_name {{ project_url }};
 

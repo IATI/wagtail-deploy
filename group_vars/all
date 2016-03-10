@@ -1,10 +1,14 @@
 project: wagtaildemo
 db_host: localhost
-psql_db_name: {{project}}
-project_path: /var/www/{{project}}
+psql_db_name: "{{ project }}"
+project_path: /var/www/{{ project }}
 project_url: _
 project_port: 80
 
 uwsgi_host: localhost
 uwsgi_port: 8000
 
+project_user: wagtail
+# password is echo "wagtailpassword" | mkpasswd --method=SHA-512
+
+project_password: $6$vHY8s4KOIUA$wivb8R0cf2SYiq08qC0nTBRjjdM8PUf8GOoPw7vt98QxBdLsgkTV2X7NjZpUIbqRmt/YN7J6aw19w4uxDAFyo1
