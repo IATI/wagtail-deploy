@@ -18,7 +18,6 @@
   pip: requirements={{project_path}}/requirements.txt
 - name: copy local.py
   template: src=local.j2 dest={{ project_path }}/wagtaildemo/settings/local.py
-  when: not ("{{ db_host }}" == "localhost")
 - name: initiate db
   become: yes
   become_user: "{{project_user}}"
