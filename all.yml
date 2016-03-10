@@ -1,0 +1,8 @@
+---
+- hosts: all
+  roles:
+    - db
+    - nginx
+    - search
+    - cache
+    - wagtail

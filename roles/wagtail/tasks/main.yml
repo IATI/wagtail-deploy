@@ -25,6 +25,7 @@
   with_items:
     - migrate
     - load_initial_data
+    - update_index
 - name: copy uwsgi file
   template: src=uwsgi.j2 dest={{ project_path }}/uwsgi.yaml
 - name: get uwsgi PATH

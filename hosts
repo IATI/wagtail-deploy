@@ -1,8 +1,21 @@
 [back]
-192.168.100.9 ansible_user=root
+192.168.100.9
 
 [db]
-192.168.100.9 ansible_user=root
+192.168.100.9
 
 [front]
-192.168.100.9 ansible_user=root
+192.168.100.9
+
+[cache]
+192.168.100.9
+
+[search]
+192.168.100.9
+
+[all:children]
+back
+front
+db
+cache
+search

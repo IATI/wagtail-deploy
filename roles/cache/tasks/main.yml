@@ -1,2 +1,9 @@
 ---
-# tasks file for cache
+- name: depends
+  apt: name=redis-server state=latest
+- name: copy config
+  template: src=redis.j2 dest=/etc/redis/redis.conf
+- name: redis enable
+  service: name=redis-server enabled=yes
+- name: redis restart
+  service: name=redis-server state=restarted

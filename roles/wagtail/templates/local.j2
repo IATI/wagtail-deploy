@@ -7,3 +7,22 @@ DATABASES = {
         'PASSWORD': '{{project_password}}',
     }
 }
+
+WAGTAILSEARCH_BACKENDS = {
+    'default': {
+        'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch',
+        'INDEX': '{{ project }}'
+    }
+}
+
+
+CACHES = {
+    'default': {
+        'BACKEND': 'redis_cache.cache.RedisCache',
+        'LOCATION': '{{ redis_host }}:6379',
+        'KEY_PREFIX': '{{ project }}',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'redis_cache.client.DefaultClient',
+        }
+    }
+}
