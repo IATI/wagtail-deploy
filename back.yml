@@ -1,4 +1,0 @@
----
-- hosts: back
-  roles:
-    - wagtail

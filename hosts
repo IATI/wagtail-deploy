@@ -1,21 +1,9 @@
-[back]
-192.168.100.9
+[group1]
+192.168.100.7
 
-[db]
-192.168.100.9
-
-[front]
-192.168.100.9
-
-[cache]
-192.168.100.9
-
-[search]
+[group2]
 192.168.100.9
 
 [all:children]
-back
-front
-db
-cache
-search
+group1
+group2

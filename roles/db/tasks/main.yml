@@ -5,6 +5,12 @@
     - postgresql
     - libpq-dev
     - python-psycopg2
+- name: copy postgresql.conf
+  template: src=postgresql.j2 dest=/etc/postgresql/{{ postgres_version }}/main/postgresql.conf
+  register: postgresql_conf
+- name: pg restart
+  service: name=postgresql state=restarted
+  when: postgresql_conf.changed
 - name: create db
   become: yes
   become_user: postgres

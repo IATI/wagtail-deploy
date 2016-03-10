@@ -1,3 +1,7 @@
 ---
 - name: daemon-reload
   command: systemctl daemon-reload
+  notify:
+    - service restart
+- name: service restart
+  service: name={{project}} state=restarted

@@ -1,5 +1,6 @@
 ansible_user: root
-db_host: localhost
+db_host: 192.168.100.7
+postgres_version: 9.4
 project: wagtaildemo
 project_user: wagtail
 project_password: wagtailpassword
@@ -7,6 +8,6 @@ project_path: /var/www/{{ project }}
 project_port: 80
 project_url: _
 psql_db_name: "{{ project }}"
-redis_host: 127.0.0.1
-uwsgi_host: localhost
+redis_host: 192.168.100.7
+uwsgi_host: 192.168.100.9
 uwsgi_port: 8000

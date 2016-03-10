@@ -1,0 +1,10 @@
+---
+- hosts: group1
+  roles:
+    - db
+    - cache
+    - nginx
+- hosts: group2
+  roles:
+    - search
+    - wagtail

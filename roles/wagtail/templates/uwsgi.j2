@@ -1,12 +1,11 @@
 uwsgi:
   chdir: {{ project_path }}
   env: DJANGO_SETTINGS_MODULE={{ project }}.settings
-  socket: 0.0.0.0:{{ uwsgi_port }}
+  socket: {{ uwsgi_host }}:{{ uwsgi_port }}
   module: {{ project }}.wsgi
   master: True
   pidfile: {{ project }}.pid
   vacuum: True
-  plugins: python27
   uid: {{project_user}}
   gid: {{project_user}}
-  logfile: /var/log/uwsgi/{{ project }}.log
+  logto: /var/log/uwsgi/{{ project }}.log
