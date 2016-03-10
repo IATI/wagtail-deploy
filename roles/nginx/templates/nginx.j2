@@ -1,0 +1,13 @@
+server {
+        root {{ project_path }};
+
+        access_log {{ project_path }}/logs/nginx-access.log;
+        error_log {{ project_path }}/logs/nginx-errors.log;
+        listen {{ project_port }};
+        server_name {{ project_url }};
+
+        location / {
+                include uwsgi_params;
+                uwsgi_pass {{ uwsgi_host }}:{{ uwsgi_port }};
+        }
+}

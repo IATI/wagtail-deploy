@@ -1,0 +1,6 @@
+---
+- name: install postgres
+  apt: name=postgresql state=latest
+
+- name: create db
+  postgresql_db: name={{ psql_db_name }}

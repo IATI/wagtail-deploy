@@ -1,0 +1,9 @@
+uwsgi:
+  chdir = {{ wagtail_path }}
+  env = DJANGO_SETTINGS_MODULE={{ wagtail_path }}.wagtaildemo.settings
+  socket = 0.0.0.0:{{ uwsgi_port }}
+  module = wagtaildemo.wsgi
+  master = True
+  pidfile = wagtaildemo.pid
+  vacuum = True
+  plugins = python27

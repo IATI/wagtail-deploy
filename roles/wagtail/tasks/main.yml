@@ -1,0 +1,30 @@
+---
+- name: {{project}} checkout
+  git: repo=https://github.com/torchbox/wagtaildemo.git dest={{project_path}}
+- name: install packages
+  apt: name={{item}} state=present
+  with_items:
+    - python-pip
+    - python-devel
+    - uwsgi
+    - uwsgi-plugin-python
+- name: install requirements
+  pip: requirements={{project_path}}/requirements.txt
+- name: copy local.py
+  template: src=local.j2 dest={{ project_path }}/wagtaildemo/settings/local.py
+- name: initiate db
+  django_manage: command={{item}} app_path={{project_path}}
+  with_items:
+    - migrate
+    - load_initial_data
+    - createsuperuser
+- name: copy uwsgi file
+  template: src=uwsgi.j2 dest={{ project_path }}/uwsgi.yaml
+- name: {{project}}.service
+  copy: src=uwsgi.service.j2 dest=/usr/lib/systemd/system/{{project}}.service
+  notify:
+    - daemon-reload
+- name: service enable
+  service: name={{project}} enabled=yes
+- name: service start
+  service: name={{project}} state=started

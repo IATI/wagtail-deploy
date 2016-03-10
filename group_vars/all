@@ -1,0 +1,10 @@
+project: wagtaildemo
+db_host: localhost
+psql_db_name: {{project}}
+project_path: /var/www/{{project}}
+project_url: _
+project_port: 80
+
+uwsgi_host: localhost
+uwsgi_port: 8000
+
