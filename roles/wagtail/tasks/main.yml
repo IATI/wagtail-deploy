@@ -12,7 +12,6 @@
   user: name={{project_user}} comment="{{ project }}"
 - name: project checkout
   git: repo=https://github.com/torchbox/wagtaildemo.git dest={{project_path}}
-  register: repo_update
 - name: chown to user
   file: path={{project_path}} owner={{project_user}}
 - name: install requirements
@@ -21,15 +20,20 @@
   pip: name=django-redis-cache state=latest
 - name: copy local.py
   template: src=local.j2 dest={{ project_path }}/wagtaildemo/settings/local.py
+- name: migrate db
+  become: yes
+  become_user: "{{project_user}}"
+  django_manage: command=migrate app_path={{project_path}}
+  register: migration
 - name: initiate db
   become: yes
   become_user: "{{project_user}}"
-  django_manage: command={{item}} app_path={{project_path}}
-  with_items:
-    - migrate
-    - load_initial_data
-    - update_index
-  when: repo_update.changed
+  django_manage: command=load_initial_data app_path={{project_path}}
+  when: migration.changed
+- name: update index
+  become: yes
+  become_user: "{{project_user}}"
+  django_manage: command=update_index app_path={{project_path}}
 - name: copy uwsgi file
   template: src=uwsgi.j2 dest={{ project_path }}/uwsgi.yaml
 - name: get uwsgi PATH

@@ -9,5 +9,5 @@ project_port: 80
 project_url: _
 psql_db_name: "{{ project }}"
 redis_host: 192.168.100.7
-uwsgi_host: 192.168.100.9
+uwsgi_host: 192.168.100.8
 uwsgi_port: 8000

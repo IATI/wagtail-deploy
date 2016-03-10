@@ -2,11 +2,14 @@
 - name: install postgresql
   apt: name={{ item }} state=latest
   with_items:
-    - postgresql
+    - postgresql-9.4
+    - postgresql-client-9.4
     - libpq-dev
     - python-psycopg2
 - name: copy postgresql.conf
   template: src=postgresql.j2 dest=/etc/postgresql/{{ postgres_version }}/main/postgresql.conf
+- name: copy pg_hba.conf
+  template: src=pg_hba.j2 dest=/etc/postgresql/{{ postgres_version }}/main/pg_hba.conf
   register: postgresql_conf
 - name: pg restart
   service: name=postgresql state=restarted
