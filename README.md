@@ -12,6 +12,7 @@
 Пример использования в виде двух ansible-playbook:
 
 +   single.yml - деплой на один хост
+    
     В hosts надо поправить группу uwsgi.
 +   multi.yml - деплой на более, чем один хост.
     -   1 хост - nginx, postgresql и wagtail
