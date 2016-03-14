@@ -1,14 +1,12 @@
 ---
 - name: depends
-  apt: name=nginx state=latest
-- name: remove nginx default site
-  shell: sed -i '/include \/etc\/nginx\/conf.d\/\*.conf;/q' /etc/nginx/nginx.conf
-- name: fix nginx.conf
-  shell: echo "}" >> /etc/nginx/nginx.conf
+  package: name=nginx state=latest
+- name: copy nginx conf
+  template: src=nginx.j2 dest=/etc/nginx/nginx.conf
 - name: ensure /etc/nginx/conf.d exists
   file: path=/etc/nginx/conf.d state=directory
 - name: copy nginx conf for {{project}}
-  template: src=nginx.j2 dest=/etc/nginx/conf.d/{{project}}.conf
+  template: src=project.j2 dest=/etc/nginx/conf.d/{{project}}.conf
 - name: nginx enable
   service: name=nginx enabled=yes
 - name: nginx restart

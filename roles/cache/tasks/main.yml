@@ -1,9 +1,14 @@
 ---
+- include_vars: "{{ item }}"
+  with_first_found:
+    - "../vars/{{ ansible_os_family }}.yml"
+    - "../vars/Debian.yml"
+  when: redis_package is not defined or redis_path is not defined
 - name: depends
-  apt: name=redis-server state=latest
+  package: name={{redis_package}} state=latest
 - name: copy config
-  template: src=redis.j2 dest=/etc/redis/redis.conf
+  template: src=redis.j2 dest={{redis_path}}/redis.conf
 - name: redis enable
-  service: name=redis-server enabled=yes
+  service: name={{redis_package}} enabled=yes
 - name: redis restart
-  service: name=redis-server state=restarted
+  service: name={{redis_package}} state=restarted

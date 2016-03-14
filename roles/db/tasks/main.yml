@@ -1,19 +1,27 @@
 ---
+- include_vars: "{{ item }}"
+  with_first_found:
+    - "../vars/{{ ansible_os_family }}.yml"
+    - "../vars/Debian.yml"
+  when: install_db_packages is not defined or postgresql_conf is not defined
 - name: install postgresql
-  apt: name={{ item }} state=latest
-  with_items:
-    - postgresql-{{ postgres_version }}
-    - postgresql-client-{{ postgres_version }}
-    - libpq-dev
-    - python-psycopg2
+  package: name={{ item }} state=latest
+  with_items: "{{ install_db_packages }}"
+  register: postgres_installed
+- name: init postgresql
+  command: /usr/bin/postgresql-setup --initdb --unit postgresql
+  when: ansible_os_family == "RedHat" and postgres_installed.changed
 - name: copy postgresql.conf
-  template: src=postgresql.j2 dest=/etc/postgresql/{{ postgres_version }}/main/postgresql.conf
+  template: src=postgresql.j2 dest={{ postgresql_conf }}/postgresql.conf
+  register: postgresql_conf_task
 - name: copy pg_hba.conf
-  template: src=pg_hba.j2 dest=/etc/postgresql/{{ postgres_version }}/main/pg_hba.conf
-  register: postgresql_conf
+  template: src=pg_hba.j2 dest={{ postgresql_conf }}/pg_hba.conf
+  register: postgresql_hba_task
+- name: pg enable
+  service: name=postgresql enabled=yes
 - name: pg restart
   service: name=postgresql state=restarted
-  when: postgresql_conf.changed
+  when: postgresql_conf_task.changed or postgresql_hba_task.changed
 - name: create db
   become: yes
   become_user: postgres

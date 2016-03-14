@@ -6,5 +6,4 @@
     - nginx
 - hosts: group2
   roles:
-    - search
     - wagtail

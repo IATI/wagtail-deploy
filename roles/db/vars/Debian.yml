@@ -1,0 +1,7 @@
+---
+install_db_packages:
+    - postgresql
+    - postgresql-client
+    - libpq-dev
+    - python-psycopg2
+postgresql_conf: /etc/postgresql/{{postgres_version}}/main

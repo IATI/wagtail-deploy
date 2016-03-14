@@ -1,0 +1,8 @@
+---
+install_db_packages:
+    - postgresql
+    - postgresql-server
+    - postgresql-devel
+    - python-psycopg2
+    - libselinux-python
+postgresql_conf: /var/lib/pgsql/data

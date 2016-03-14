@@ -1,13 +1,20 @@
 ---
+- include_vars: "{{ item }}"
+  with_first_found:
+    - "../vars/{{ ansible_os_family }}.yml"
+    - "../vars/Debian.yml"
+  when: install_wagtail_packages is not defined
 - name: install packages
-  apt: name={{item}} state=present
-  with_items:
-    - python-pip
-    - python-dev
-    - git
-    - uwsgi
-    - uwsgi-plugin-python
-    - libjpeg-dev
+  package: name={{item}} state=latest
+  with_items: "{{ install_wagtail_packages }}"
+- name: chown to user
+  file: path=/var/lib/elasticsearch owner=elasticsearch recurse=yes
+- name: copy default file
+  template: src=elasticsearch dest=/etc/default/elasticsearch
+- name: elasticsearch enable
+  service: name=elasticsearch enabled=yes
+- name: elasticsearch restart
+  service: name=elasticsearch state=restarted
 - name: add project user
   user: name={{project_user}} comment="{{ project }}"
 - name: project checkout

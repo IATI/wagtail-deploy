@@ -1,9 +1,14 @@
-[group1]
+[host1]
 192.168.100.7
 
-[group2]
+[host2]
 192.168.100.8
 
-[all:children]
-group1
-group2
+[uwsgi:children]
+host2
+
+[group1:children]
+host1
+
+[group2:children]
+uwsgi

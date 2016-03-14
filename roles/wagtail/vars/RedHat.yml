@@ -1,0 +1,11 @@
+---
+install_wagtail_packages:
+    - python-pip
+    - python-devel
+    - gcc-c++
+    - redhat-rpm-config
+    - git
+    - uwsgi
+    - uwsgi-plugin-python
+    - libjpeg-turbo-devel
+    - elasticsearch
