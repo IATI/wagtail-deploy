@@ -7,14 +7,6 @@
 - name: install packages
   package: name={{item}} state=latest
   with_items: "{{ install_wagtail_packages }}"
-- name: chown to user
-  file: path=/var/lib/elasticsearch owner=elasticsearch recurse=yes
-- name: copy default file
-  template: src=elasticsearch dest=/etc/default/elasticsearch
-- name: elasticsearch enable
-  service: name=elasticsearch enabled=yes
-- name: elasticsearch restart
-  service: name=elasticsearch state=restarted
 - name: add project user
   user: name={{project_user}}
 - name: project checkout
@@ -25,6 +17,8 @@
   pip: name=django-redis-cache state=latest
 - name: copy local.py
   template: src=local.j2 dest={{ project_path }}/wagtaildemo/settings/local.py
+  notify:
+    - service restart
 - name: chown to user
   file: path={{project_path}} owner={{project_user}} recurse=yes
 - name: migrate db

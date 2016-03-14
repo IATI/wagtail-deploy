@@ -2,7 +2,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': '{{psql_db_name}}',
-        'HOST': '{{db_host}}',
+        'HOST': '{{ hostvars[groups['db'][0]]['ansible_eth0']['ipv4']['address'] }}',
         'USER': '{{project_user}}',
         'PASSWORD': '{{project_password}}',
     }
@@ -10,7 +10,12 @@ DATABASES = {
 
 WAGTAILSEARCH_BACKENDS = {
     'default': {
-        'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch',
+        'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
+        'URLS': [
+        {% for es in groups['search'] %}
+        'http://{{ es }}:9200',
+        {% endfor %}
+        ],
         'INDEX': '{{ project }}'
     }
 }
@@ -19,7 +24,7 @@ WAGTAILSEARCH_BACKENDS = {
 CACHES = {
     'default': {
         'BACKEND': 'redis_cache.cache.RedisCache',
-        'LOCATION': '{{ redis_host }}:6379',
+        'LOCATION': '{{ hostvars[groups['cache'][0]]['ansible_eth0']['ipv4']['address'] }}:6379',
         'KEY_PREFIX': '{{ project }}',
         'OPTIONS': {
             'CLIENT_CLASS': 'redis_cache.client.DefaultClient',

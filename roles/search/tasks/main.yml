@@ -1,0 +1,11 @@
+---
+- name: install es
+  package: name=elasticsearch state=latest
+- name: chown to user
+  file: path=/var/lib/elasticsearch owner=elasticsearch recurse=yes
+- name: copy default file
+  template: src=elasticsearch dest=/etc/default/elasticsearch
+- name: elasticsearch enable
+  service: name=elasticsearch enabled=yes
+- name: elasticsearch restart
+  service: name=elasticsearch state=restarted

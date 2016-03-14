@@ -1,7 +1,8 @@
 ---
-- hosts: uwsgi
+- hosts: host1
   roles:
     - db
     - nginx
     - cache
+    - search
     - wagtail

@@ -8,5 +8,4 @@ install_wagtail_packages:
     - uwsgi
     - uwsgi-plugin-python
     - libjpeg-turbo-devel
-    - elasticsearch
     - zlib-devel

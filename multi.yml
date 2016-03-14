@@ -1,11 +1,14 @@
 ---
-- hosts: group1
+- hosts: db
   roles:
     - db
     - nginx
-- hosts: group2
+- hosts: cache
   roles:
     - cache
+- hosts: search
+  roles:
+    - search
 - hosts: uwsgi
   roles:
     - wagtail

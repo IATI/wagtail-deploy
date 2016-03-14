@@ -4,13 +4,16 @@
 [host2]
 192.168.100.8
 
-
-[uwsgi:children]
+[search:children]
 host1
 host2
 
-[group1:children]
+[cache:children]
+host2
+
+[db:children]
 host1
 
-[group2:children]
+[uwsgi:children]
+host1
 host2

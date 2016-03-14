@@ -1,13 +1,13 @@
 # wagtail-deploy
 
-Репозиторий содержит 4 роли:
+Репозиторий содержит 5 ролей:
 
 +   cache - Redis сервер
 +   db - PostgreSQL
 +   nginx - Nginx
-+   wagtail - uwsgi + wagtaildemo + Elasticsearch
-    
-    Elasticsearch и wagtail объединены в одну роль, так как wagtail не имеет возможности указания хоста для Elasticsearch
++   search - Elasticsearch
++   wagtail - uwsgi + wagtaildemo
+
 
 Пример использования в виде двух ansible-playbook:
 

@@ -7,4 +7,3 @@ install_wagtail_packages:
     - uwsgi
     - uwsgi-plugin-python
     - libjpeg-dev
-    - elasticsearch
