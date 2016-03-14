@@ -15,11 +15,8 @@
     
     В hosts надо поправить группу uwsgi.
 +   multi.yml - деплой на более, чем один хост.
-    -   1 хост - nginx, postgresql и wagtail
-    -   2 хост - redis и wagtail
-    
-    В group_vars/all - поправить адреса redis и postgresql (можно сделать для них свою группу и брать оттуда)
-
+    -   1 хост - nginx, postgresql, ES и wagtail
+    -   2 хост - redis, ES и wagtail
 
 Экземпляров uwsgi и ES может быть сколько угодно (независимые); redis, postgresql, nginx - в единственном.
 
