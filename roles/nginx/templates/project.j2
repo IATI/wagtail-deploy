@@ -1,5 +1,5 @@
 upstream {{ project }}-back {
-    {% for server in groups['db_servers'] %}
+    {% for server in groups['uwsgi'] %}
     server {{ server }}:{{uwsgi_port}};
     {% endfor %}
 }

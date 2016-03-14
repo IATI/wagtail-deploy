@@ -1,11 +1,12 @@
 uwsgi:
   chdir: {{ project_path }}
   env: DJANGO_SETTINGS_MODULE={{ project }}.settings
-  socket: {{ uwsgi_host }}:{{ uwsgi_port }}
+  socket: {{ ansible_default_ipv4['address'] }}:{{ uwsgi_port }}
   module: {{ project }}.wsgi
   master: True
   pidfile: {{ project }}.pid
   vacuum: True
+  plugin: python
   uid: {{project_user}}
   gid: {{project_user}}
   logto: /var/log/uwsgi/{{ project }}.log

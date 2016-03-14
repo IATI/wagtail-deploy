@@ -4,11 +4,13 @@
 [host2]
 192.168.100.8
 
+
 [uwsgi:children]
+host1
 host2
 
 [group1:children]
 host1
 
 [group2:children]
-uwsgi
+host2

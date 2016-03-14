@@ -3,7 +3,7 @@
   with_first_found:
     - "../vars/{{ ansible_os_family }}.yml"
     - "../vars/Debian.yml"
-  when: install_db_packages is not defined or postgresql_conf is not defined
+  when: install_db_packages is not defined or postgresql_conf is not defined or postgresql_data is not defined
 - name: install postgresql
   package: name={{ item }} state=latest
   with_items: "{{ install_db_packages }}"

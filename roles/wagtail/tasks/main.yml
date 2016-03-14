@@ -16,17 +16,17 @@
 - name: elasticsearch restart
   service: name=elasticsearch state=restarted
 - name: add project user
-  user: name={{project_user}} comment="{{ project }}"
+  user: name={{project_user}}
 - name: project checkout
   git: repo=https://github.com/torchbox/wagtaildemo.git dest={{project_path}}
-- name: chown to user
-  file: path={{project_path}} owner={{project_user}}
 - name: install requirements
   pip: requirements={{project_path}}/requirements.txt
 - name: install django-redis-cache
   pip: name=django-redis-cache state=latest
 - name: copy local.py
   template: src=local.j2 dest={{ project_path }}/wagtaildemo/settings/local.py
+- name: chown to user
+  file: path={{project_path}} owner={{project_user}} recurse=yes
 - name: migrate db
   become: yes
   become_user: "{{project_user}}"
@@ -43,6 +43,10 @@
   django_manage: command=update_index app_path={{project_path}}
 - name: copy uwsgi file
   template: src=uwsgi.j2 dest={{ project_path }}/uwsgi.yaml
+  notify:
+    - service restart
+- name: ensure /var/log/uwsgi exists
+  file: path=/var/log/uwsgi state=directory
 - name: get uwsgi PATH
   command: which uwsgi
   register: uwsgi_path
@@ -50,6 +54,7 @@
   template: src=uwsgi.service.j2 dest=/lib/systemd/system/{{project}}.service
   notify:
     - daemon-reload
+    - service-restart
 - name: service enable
   service: name={{project}} enabled=yes
 - name: service start

@@ -6,3 +6,4 @@ install_db_packages:
     - python-psycopg2
     - libselinux-python
 postgresql_conf: /var/lib/pgsql/data
+postgresql_data: "{{postgresql_conf}}"

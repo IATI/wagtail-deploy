@@ -1,12 +1,10 @@
-listen_addresses = '{{db_host}}'
+listen_addresses = '{{ansible_default_ipv4['address']}}'
 port = 5432             # (change requires restart)
 max_connections = 100           # (change requires restart)
-unix_socket_directories = '/var/run/postgresql' # comma-separated list of directories
 shared_buffers = 128MB          # min 128kB
 dynamic_shared_memory_type = posix  # the default is the first option
 log_line_prefix = '%t [%p-%l] %q%u@%d '         # special values:
 log_timezone = 'UTC+3'
-stats_temp_directory = '/var/run/postgresql/{{ postgres_version }}-main.pg_stat_tmp'
 datestyle = 'iso, mdy'
 timezone = 'UTC+3'
 lc_messages = 'en_US.UTF-8'         # locale for system error message
@@ -14,3 +12,8 @@ lc_monetary = 'en_US.UTF-8'         # locale for monetary formatting
 lc_numeric = 'en_US.UTF-8'          # locale for number formatting
 lc_time = 'en_US.UTF-8'             # locale for time formatting
 default_text_search_config = 'pg_catalog.english'
+
+data_directory = '{{ postgresql_data }}'     # use data in another directory
+hba_file = '{{ postgresql_conf }}/pg_hba.conf'   # host-based authentication file
+ident_file = '{{ postgresql_conf }}/pg_ident.conf'   # ident configuration file
+external_pid_file = '/var/run/postgresql/{{ postgres_version }}-main.pid'          # write an extra PID file

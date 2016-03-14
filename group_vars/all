@@ -1,5 +1,5 @@
 ansible_user: root
-db_host: 192.168.100.8
+db_host: 192.168.100.7
 postgres_version: 9.4
 project: wagtaildemo
 project_user: wagtail
