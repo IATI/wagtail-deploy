@@ -19,3 +19,10 @@ In hosts, you need to fix the uwsgi group.
 1 host - nginx, postgresql, ES and wagtail
 2 hosts - redis, ES and wagtail
 The uwsgi and ES instances can be any number (independent); redis, postgresql, nginx - in the only one.
+
+
+## Running the code
+
+```
+ansible-playbook single.yml -i hosts -u root
+```
