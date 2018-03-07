@@ -1,22 +1,21 @@
 # wagtail-deploy
 
-Репозиторий содержит 5 ролей:
+The repository contains 5 roles:
 
-+   cache - Redis сервер
-+   db - PostgreSQL
-+   nginx - Nginx
-+   search - Elasticsearch
-+   wagtail - uwsgi + wagtaildemo
+- cache - Redis server
+- db - PostgreSQL
+- nginx - Nginx
+- search - Elasticsearch
+- wagtail - uwsgi + wagtaildemo
 
+An example of use in the form of two ansible-playbook:
 
-Пример использования в виде двух ansible-playbook:
+`single.yml` - demo per host
 
-+   single.yml - деплой на один хост
-    
-    В hosts надо поправить группу uwsgi.
-+   multi.yml - деплой на более, чем один хост.
-    -   1 хост - nginx, postgresql, ES и wagtail
-    -   2 хост - redis, ES и wagtail
+In hosts, you need to fix the uwsgi group.
 
-Экземпляров uwsgi и ES может быть сколько угодно (независимые); redis, postgresql, nginx - в единственном.
+`multi.yml` - a de-job on more than one host.
 
+1 host - nginx, postgresql, ES and wagtail
+2 hosts - redis, ES and wagtail
+The uwsgi and ES instances can be any number (independent); redis, postgresql, nginx - in the only one.
